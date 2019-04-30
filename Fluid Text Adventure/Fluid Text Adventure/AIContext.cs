@@ -21,6 +21,7 @@ namespace Fluid_Text_Adventure
     {
         None,
         GetBottle,
+        DropBottle,
         OpenBottle,
         CloseBottle,
         DrinkBottle,
@@ -28,6 +29,7 @@ namespace Fluid_Text_Adventure
         SlashBottle,
         ThrowBottle,
         GetSword,
+        DropSword,
         SlashAir,
     }
 

@@ -65,6 +65,12 @@ namespace Fluid_Text_Adventure
             return TaskStatus.Success;
         }
 
+        public static TaskStatus DropSword(AIContext context)
+        {
+            context.CurrentScreen.Write("You drop the sword", false);
+            return TaskStatus.Success;
+        }
+
         public static TaskStatus Write(AIContext context, string text)
         {
             context.CurrentScreen.Write(text, false);

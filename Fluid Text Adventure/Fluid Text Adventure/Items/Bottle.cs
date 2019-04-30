@@ -38,6 +38,10 @@ namespace Fluid_Text_Adventure
                     new List<string> { "slash", "bottle" },
                     ctx => SetGoal?.Invoke(ctx, GoalState.SlashBottle)
                 },
+                {
+                    new List<string> { "drop", "bottle" },
+                    ctx => SetGoal?.Invoke(ctx, GoalState.DropBottle)
+                },
             };
         }
 
@@ -51,6 +55,18 @@ namespace Fluid_Text_Adventure
                         .Do(Actions.GetBottle)
                         .Effect("Has Bottle", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasBottle, true, type))
                         .Effect("Try Complete Goal", EffectType.PlanAndExecute, (ctx, type) => Actions.TryCompleteGoal(ctx, GoalState.GetBottle, type))
+                    .End()
+                .End()
+                .Build();
+
+            var dropBottleDomain = new DomainBuilder<AIContext>("Drop Bottle Sub-domain")
+                .Select("Drop Bottle")
+                    .Condition("GOAL: Drop Bottle", (ctx => ctx.HasGoal(GoalState.DropBottle)))
+                    .Action("Drop Bottle")
+                        .Condition("Has Bottle", ctx => ctx.HasState(AIWorldState.HasBottle))
+                        .Do(Actions.DropBottle)
+                        .Effect("Has NOT Bottle", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasBottle, false, type))
+                        .Effect("Try Complete Goal", EffectType.PlanAndExecute, (ctx, type) => Actions.TryCompleteGoal(ctx, GoalState.DropBottle, type))
                     .End()
                 .End()
                 .Build();
@@ -187,6 +203,14 @@ namespace Fluid_Text_Adventure
                         .End()
                         .Splice(cutBottleDomain)
                     .End()
+                    .Sequence("Set down bottle and slash it")
+                        .Action("Drop bottle")
+                            .Condition("Has Bottle", ctx => ctx.HasState(AIWorldState.HasBottle))
+                            .Do(Actions.DropBottle)
+                            .Effect("Has NOT Bottle", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasBottle, false, type))
+                        .End()
+                        .Splice(cutBottleDomain)
+                    .End()
                 .End()
                 .Build();
 
@@ -201,6 +225,7 @@ namespace Fluid_Text_Adventure
                 .Splice(openBottleDomain)
                 .Splice(drinkBottleDomain)
                 .Splice(breakBottleDomain)
+                .Splice(dropBottleDomain)
                 .Action("Already has bottle")
                     .Condition("GOAL: Get Bottle", (ctx => ctx.HasGoal(GoalState.GetBottle)))
                     .Condition("Has Bottle", ctx => ctx.HasState(AIWorldState.HasBottle))
@@ -217,6 +242,12 @@ namespace Fluid_Text_Adventure
                     .Condition("GOAL: Drink Bottle", (ctx => ctx.HasGoal(GoalState.DrinkBottle)))
                     .Condition("Bottle is empty", ctx => ctx.HasState(AIWorldState.BottleIsEmpty))
                         .Do((ctx => Actions.Write(ctx, "But the bottle is empty!")))
+                    .Effect("Complete Goal", EffectType.PlanAndExecute, (ctx, type) => ctx.SetGoal(GoalState.None, true, type))
+                .End()
+                .Action("Not holding bottle to drop")
+                    .Condition("GOAL: Drop Bottle", (ctx => ctx.HasGoal(GoalState.DropBottle)))
+                    .Condition("Has NOT Bottle", ctx => ctx.HasState(AIWorldState.HasBottle, false))
+                        .Do((ctx => Actions.Write(ctx, "But you're not holding the bottle!")))
                     .Effect("Complete Goal", EffectType.PlanAndExecute, (ctx, type) => ctx.SetGoal(GoalState.None, true, type))
                 .End()
                 .Build();

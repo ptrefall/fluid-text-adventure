@@ -28,6 +28,10 @@ namespace Fluid_Text_Adventure
                     new List<string> { "slash" },
                     ctx => SetGoal?.Invoke(ctx, GoalState.SlashAir)
                 },
+                {
+                    new List<string> { "drop", "sword" },
+                    ctx => SetGoal?.Invoke(ctx, GoalState.DropSword)
+                },
             };
         }
 
@@ -45,6 +49,18 @@ namespace Fluid_Text_Adventure
                 .End()
                 .Build();
 
+            var dropSwordDomain = new DomainBuilder<AIContext>("Drop Sword Sub-domain")
+                .Select("Drop Sword")
+                    .Condition("GOAL: Drop Sword", (ctx => ctx.HasGoal(GoalState.DropSword)))
+                    .Action("Drop Sword")
+                        .Condition("Has Weapon", ctx => ctx.HasState(AIWorldState.HasWeapon))
+                        .Do(Actions.DropSword)
+                        .Effect("Has NOT Weapon", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasWeapon, false, type))
+                        .Effect("Try Complete Goal", EffectType.PlanAndExecute, (ctx, type) => Actions.TryCompleteGoal(ctx, GoalState.DropSword, type))
+                    .End()
+                .End()
+                .Build();
+
             var slashAirActionDomain = new DomainBuilder<AIContext>("Slash Air Action Sub-domain")
                 .Action("Slash Air")
                     .Condition("GOAL: Slash Air", (ctx => ctx.HasGoal(GoalState.SlashAir)))
@@ -56,10 +72,17 @@ namespace Fluid_Text_Adventure
 
             return new DomainBuilder<AIContext>("Sword sub-domain")
                 .Splice(getSwordDomain)
+                .Splice(dropSwordDomain)
                 .Action("Already has sword")
                     .Condition("GOAL: Get Sword", (ctx => ctx.HasGoal(GoalState.GetSword)))
                     .Condition("Has Weapon", ctx => ctx.HasState(AIWorldState.HasWeapon))
                     .Do((ctx => Actions.Write(ctx, "But you're already wielding the sword!")))
+                    .Effect("Complete Goal", EffectType.PlanAndExecute, (ctx, type) => ctx.SetGoal(GoalState.None, true, type))
+                .End()
+                .Action("Not holding sword to drop")
+                    .Condition("GOAL: Drop Sword", (ctx => ctx.HasGoal(GoalState.DropSword)))
+                    .Condition("Has NOT Weapon", ctx => ctx.HasState(AIWorldState.HasWeapon, false))
+                    .Do((ctx => Actions.Write(ctx, "But you're not holding a sword!")))
                     .Effect("Complete Goal", EffectType.PlanAndExecute, (ctx, type) => ctx.SetGoal(GoalState.None, true, type))
                 .End()
                 .Select("Slash")
