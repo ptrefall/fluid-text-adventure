@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using FluidHTN;
 
 namespace Fluid_Text_Adventure.Screens
@@ -94,6 +95,9 @@ namespace Fluid_Text_Adventure.Screens
             int bestScore = 0;
             foreach (var kvp in KeywordsToAction)
             {
+                if (!IsEqual(kvp.Key[0], parameters[0]))
+                    continue;
+
                 var score = 0;
                 foreach (var key in kvp.Key)
                 {
@@ -120,6 +124,9 @@ namespace Fluid_Text_Adventure.Screens
             {
                 foreach (var kvp in item.KeywordsToAction)
                 {
+                    if (!IsEqual(kvp.Key[0], parameters[0]))
+                        continue;
+
                     var score = 0;
                     foreach (var key in kvp.Key)
                     {
@@ -157,12 +164,63 @@ namespace Fluid_Text_Adventure.Screens
             {
                 if (b == "pick up") return true;
                 if (b == "fetch") return true;
+                if (b == "hold") return true;
+                if (b == "wield") return true;
+                if (b == "gather") return true;
+                if (b == "acquire") return true;
+                if (b == "take") return true;
             }
 
             if (a == "slash")
             {
                 if (b == "swing") return true;
                 if (b == "cut") return true;
+                if (b == "attack") return true;
+                if (b == "hit") return true;
+                if (b == "hack") return true;
+                if (b == "slice") return true;
+                if (b == "slit") return true;
+            }
+
+            if (a == "drink")
+            {
+                if (b == "sip") return true;
+                if (b == "gulp") return true;
+                if (b == "swallow") return true;
+                if (b == "quaff") return true;
+                if (b == "taste") return true;
+                if (b == "consume") return true;
+                if (b == "drain") return true;
+                if (b == "slurp") return true;
+                if (b == "down") return true;
+            }
+
+            if (a == "open")
+            {
+                if (b == "unscrew") return true;
+                if (b == "uncork") return true;
+            }
+
+            if (a == "throw")
+            {
+                if (b == "whirl") return true;
+                if (b == "fling") return true;
+                if (b == "hurl") return true;
+                if (b == "lob") return true;
+                if (b == "thrust") return true;
+            }
+
+            if (a == "break")
+            {
+                if (b == "destroy") return true;
+                if (b == "shatter") return true;
+                if (b == "crack") return true;
+                if (b == "crush") return true;
+                if (b == "demolish") return true;
+                if (b == "fracture") return true;
+                if (b == "ruin") return true;
+                if (b == "smash") return true;
+                if (b == "wreck") return true;
             }
 
             return false;
