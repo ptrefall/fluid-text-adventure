@@ -7,3 +7,6 @@ The example sets up a scenario with a bottle and a sword in an otherwise empty r
 This is just a simple example that show 'a' way to use the planner. The way objects and the planner domains are set up are in now way perfect or super generic, but hopefully it can help bring insight into the use of the planner.
 
 This example will improve over time.
+
+## Support
+Join the [discord channel](https://discord.gg/u45nmb) to share your experience and get support on the usage of Fluid HTN.
