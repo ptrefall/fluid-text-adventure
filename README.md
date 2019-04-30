@@ -4,7 +4,7 @@ A simple text adventure example that takes advantage of the planning capabilitie
 
 The example sets up a scenario with a bottle and a sword in an otherwise empty room. You can pick up the bottle and sword, you can open the bottle and drink from it, throw the bottle or break it with the sword. The planner will be able to string together actions in order to fulfill the player's command conveniently. So that if you type 'drink bottle' right from the start, the planner will know to first pick up the bottle, unscrew the cork, and then drink it, for example.
 
-This is just a simple example that show 'a' way to use the planner. The way objects and the planner domains are set up are in now way perfect or super generic, but hopefully it can help bring insight into the use of the planner.
+This is just a simple example that show 'a' way to use the planner. The way objects and the planner domains are set up are in no way perfect or generic enough, but hopefully it can help bring insight into the use of the planner.
 
 This example will improve over time.
 
