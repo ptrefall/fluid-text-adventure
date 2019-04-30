@@ -21,6 +21,10 @@ namespace Fluid_Text_Adventure
                     ctx => SetGoal?.Invoke(ctx, GoalState.GetSword)
                 },
                 {
+                    new List<string> { "slash", "sword" },
+                    ctx => SetGoal?.Invoke(ctx, GoalState.SlashAir)
+                },
+                {
                     new List<string> { "slash" },
                     ctx => SetGoal?.Invoke(ctx, GoalState.SlashAir)
                 },

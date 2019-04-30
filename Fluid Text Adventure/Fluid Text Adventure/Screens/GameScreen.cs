@@ -106,6 +106,9 @@ namespace Fluid_Text_Adventure.Screens
                     }
                 }
 
+                if (kvp.Key.Count == parameters.Count)
+                    score *= 10;
+
                 if (score > bestScore)
                 {
                     bestScore = score;
@@ -128,6 +131,9 @@ namespace Fluid_Text_Adventure.Screens
                             }
                         }
                     }
+
+                    if (kvp.Key.Count == parameters.Count)
+                        score *= 10;
 
                     if (score > bestScore)
                     {

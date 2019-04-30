@@ -25,6 +25,7 @@ namespace Fluid_Text_Adventure
         CloseBottle,
         DrinkBottle,
         BreakBottle,
+        SlashBottle,
         ThrowBottle,
         GetSword,
         SlashAir,

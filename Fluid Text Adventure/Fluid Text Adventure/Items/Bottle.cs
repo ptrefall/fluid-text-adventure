@@ -34,6 +34,10 @@ namespace Fluid_Text_Adventure
                     new List<string> { "throw", "bottle" },
                     ctx => SetGoal?.Invoke(ctx, GoalState.ThrowBottle)
                 },
+                {
+                    new List<string> { "slash", "bottle" },
+                    ctx => SetGoal?.Invoke(ctx, GoalState.SlashBottle)
+                },
             };
         }
 
@@ -169,6 +173,19 @@ namespace Fluid_Text_Adventure
                             .Effect("Throw Bottle Goal", EffectType.PlanOnly, (ctx, type) => Actions.ChangeGoal(ctx, type, GoalState.ThrowBottle))
                         .End()
                         .Splice(throwBottleDomain)
+                    .End()
+                .End()
+                .Select("Slash Bottle")
+                    .Condition("GOAL: Slash Bottle", (ctx => ctx.HasGoal(GoalState.SlashBottle)))
+                    .Condition("Bottle NOT already broken", ctx => ctx.HasState(AIWorldState.BottleIsBroken, false))
+                    .Splice(cutBottleDomain)
+                    .Sequence("Get sword and cut bottle")
+                        .Action("Get Sword")
+                            .Condition("Has NOT Weapon", ctx => ctx.HasState(AIWorldState.HasWeapon, false))
+                            .Do(Actions.GetSword)
+                            .Effect("Has Weapon", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasWeapon, true, type))
+                        .End()
+                        .Splice(cutBottleDomain)
                     .End()
                 .End()
                 .Build();
