@@ -9,4 +9,4 @@ This is just a simple example that show 'a' way to use the planner. The way obje
 This example will improve over time.
 
 ## Support
-Join the [discord channel](https://discord.gg/u45nmb) to share your experience and get support on the usage of Fluid HTN.
+Join the [discord channel](https://discord.gg/MuccnAz) to share your experience and get support on the usage of Fluid HTN.
