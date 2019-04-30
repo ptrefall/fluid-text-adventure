@@ -15,8 +15,7 @@ namespace Fluid_Text_Adventure
         {
             var player = new Player();
 
-            var intro = new IntroScreen();
-            var nextScreen = intro.Run(player.Context);
+            GameScreen nextScreen = new IntroScreen();
             while (nextScreen != null)
             {
                 nextScreen = nextScreen.Run(player.Context);
