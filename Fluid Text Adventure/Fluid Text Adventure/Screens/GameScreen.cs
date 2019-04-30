@@ -1,21 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluidHTN;
 
 namespace Fluid_Text_Adventure.Screens
 {
     public abstract class GameScreen
     {
+        protected Domain<AIContext> Domain { get; private set; }
+        protected List<Item> Items;
         protected Dictionary<List<string>, Func<AIContext, GameScreen>> KeywordsToAction;
+        protected bool FirstRun { get; private set; } = true;
 
-        public abstract GameScreen Run(AIContext context);
+        public void Initialize(Domain<AIContext> domain)
+        {
+            Domain = domain;
+        }
 
-        public void Write(string text)
+        protected abstract GameScreen OnRun(AIContext context);
+
+        public GameScreen Run(AIContext context)
+        {
+            var result = OnRun(context);
+            if (FirstRun) FirstRun = false;
+            return result;
+        }
+
+        public void Write(string text, bool readLineAtEnd = true)
         {
             Console.Write(text);
             Console.WriteLine();
-            Console.WriteLine("[Enter]");
-            Console.ReadLine();
+            if (readLineAtEnd)
+            {
+                Console.WriteLine("[Enter]");
+                Console.ReadLine();
+            }
         }
 
         public string Promt(string text)
@@ -32,7 +51,14 @@ namespace Fluid_Text_Adventure.Screens
             var parameters = action.Split(' ').ToList();
             parameters = SpliceKnownCommands(parameters);
             var func = FindBestMatch(parameters);
-            return func?.Invoke(context);
+            var result = func?.Invoke(context);
+            if (result == null)
+            {
+                Actions.Failed(context);
+                return context.CurrentScreen;
+            }
+
+            return result;
         }
 
         private List<string> ToLower(List<string> parameters)
@@ -61,7 +87,7 @@ namespace Fluid_Text_Adventure.Screens
 
         private Func<AIContext, GameScreen> FindBestMatch(List<string> parameters)
         {
-            if (KeywordsToAction == null || KeywordsToAction.Count == 0)
+            if (KeywordsToAction == null)
                 return null;
 
             Func<AIContext, GameScreen> bestMatch = null;
@@ -87,6 +113,30 @@ namespace Fluid_Text_Adventure.Screens
                 }
             }
 
+            foreach (var item in Items)
+            {
+                foreach (var kvp in item.KeywordsToAction)
+                {
+                    var score = 0;
+                    foreach (var key in kvp.Key)
+                    {
+                        foreach (var parameter in parameters)
+                        {
+                            if (IsEqual(key, parameter))
+                            {
+                                score++;
+                            }
+                        }
+                    }
+
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        bestMatch = kvp.Value;
+                    }
+                }
+            }
+
             if(bestScore == 1 && parameters.Count == 1)
                 return bestMatch;
 
@@ -101,6 +151,12 @@ namespace Fluid_Text_Adventure.Screens
             {
                 if (b == "pick up") return true;
                 if (b == "fetch") return true;
+            }
+
+            if (a == "slash")
+            {
+                if (b == "swing") return true;
+                if (b == "cut") return true;
             }
 
             return false;

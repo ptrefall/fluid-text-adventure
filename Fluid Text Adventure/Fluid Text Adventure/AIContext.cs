@@ -12,6 +12,8 @@ namespace Fluid_Text_Adventure
         HasBottle,
         BottleIsOpen,
         BottleIsEmpty,
+        BottleIsBroken,
+        HasWeapon,
         Goal
     }
 
@@ -21,7 +23,11 @@ namespace Fluid_Text_Adventure
         GetBottle,
         OpenBottle,
         CloseBottle,
-        DrinkBottle
+        DrinkBottle,
+        BreakBottle,
+        ThrowBottle,
+        GetSword,
+        SlashAir,
     }
 
     public class AIContext : BaseContext
