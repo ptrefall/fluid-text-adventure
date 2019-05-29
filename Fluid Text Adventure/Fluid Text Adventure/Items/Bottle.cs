@@ -170,7 +170,7 @@ namespace Fluid_Text_Adventure
                             .Action("Get Sword")
                                 .Condition("Has NOT Weapon", ctx => ctx.HasState(AIWorldState.HasWeapon, false))
                                 .Do(Actions.GetSword)
-                                .Effect("Has Weapon", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasWeapon, true, type))      
+                                .Effect("Has Weapon", EffectType.PlanAndExecute, (ctx, type) => ctx.SetState(AIWorldState.HasWeapon, true, type))
                             .End()
                             .Splice(cutBottleDomain)
                         .End()

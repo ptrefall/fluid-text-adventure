@@ -40,7 +40,7 @@ namespace Fluid_Text_Adventure.Screens
         private GameScreen Intro(AIContext context)
         {
             Write("You're standing in an empty room of white tapestries. There's no doors or windows here.");
-            foreach(var item in Items)
+            foreach (var item in Items)
                 Write(item.Description);
 
             return Interactibles(context);
