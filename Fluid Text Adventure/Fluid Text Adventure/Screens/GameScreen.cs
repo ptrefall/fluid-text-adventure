@@ -74,12 +74,12 @@ namespace Fluid_Text_Adventure.Screens
 
         private List<string> SpliceKnownCommands(List<string> parameters)
         {
-            for (var i = 0; i < parameters.Count-1; i++)
+            for (var i = 0; i < parameters.Count - 1; i++)
             {
                 if (parameters[i] == "pick" && parameters[i + 1] == "up")
                 {
                     parameters[i] = "pick up";
-                    parameters.RemoveAt(i+1);
+                    parameters.RemoveAt(i + 1);
                 }
             }
 
@@ -150,7 +150,7 @@ namespace Fluid_Text_Adventure.Screens
                 }
             }
 
-            if(bestScore == 1 && parameters.Count == 1)
+            if (bestScore == 1 && parameters.Count == 1)
                 return bestMatch;
 
             return bestScore > 1 ? bestMatch : null;

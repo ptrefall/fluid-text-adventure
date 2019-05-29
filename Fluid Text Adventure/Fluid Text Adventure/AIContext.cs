@@ -72,27 +72,27 @@ namespace Fluid_Text_Adventure
 
         public void SetGoal(GoalState goal, bool setAsDirty = true, EffectType effectType = EffectType.Permanent)
         {
-            SetState((int)AIWorldState.Goal, (byte)goal, setAsDirty, effectType);
+            SetState((int) AIWorldState.Goal, (byte) goal, setAsDirty, effectType);
         }
 
         public bool HasState(AIWorldState state, bool value)
         {
-            return HasState((int)state, (byte)(value ? 1 : 0));
+            return HasState((int) state, (byte) (value ? 1 : 0));
         }
 
         public bool HasState(AIWorldState state)
         {
-            return HasState((int)state, 1);
+            return HasState((int) state, 1);
         }
 
         public void SetState(AIWorldState state, bool value, EffectType type)
         {
-            SetState((int)state, (byte)(value ? 1 : 0), true, type);
+            SetState((int) state, (byte) (value ? 1 : 0), true, type);
         }
 
         public byte GetState(AIWorldState state)
         {
-            return GetState((int)state);
+            return GetState((int) state);
         }
     }
 }

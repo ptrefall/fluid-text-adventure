@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fluid-HTN">
-      <HintPath>..\..\..\fluid-hierarchial-task-network\Fluid-HTN\bin\Debug\Fluid-HTN.dll</HintPath>
+      <HintPath>..\..\..\fluid-hierarchical-task-network\Fluid-HTN\bin\Debug\Fluid-HTN.dll</HintPath>
     </Reference>
     <Reference Include="Fluid-HTN-Ext">
-      <HintPath>..\..\..\fluid-hierarchial-task-network-ext\Fluid-HTN-Ext\bin\Debug\netstandard2.0\Fluid-HTN-Ext.dll</HintPath>
+      <HintPath>..\..\..\fluid-hierarchical-task-network-ext\Fluid-HTN-Ext\bin\Debug\netstandard2.0\Fluid-HTN-Ext.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
