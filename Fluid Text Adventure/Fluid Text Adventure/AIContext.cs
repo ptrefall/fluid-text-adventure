@@ -4,6 +4,7 @@ using FluidHTN;
 using FluidHTN.Contexts;
 using FluidHTN.Factory;
 using Fluid_Text_Adventure.Screens;
+using FluidHTN.Debug;
 
 namespace Fluid_Text_Adventure
 {
@@ -41,8 +42,8 @@ namespace Fluid_Text_Adventure
         public override List<string> MTRDebug { get; set; }
         public override List<string> LastMTRDebug { get; set; }
         public override bool DebugMTR { get; } = false;
-        public override Stack<string> DecompositionLog { get; set; }
-        public override bool LogDecomposition { get; } = false;
+        public override Queue<IBaseDecompositionLogEntry> DecompositionLog { get; set; }
+        public override bool LogDecomposition { get; } = true;
         public override byte[] WorldState => _worldState;
 
         public Player Player { get; }
