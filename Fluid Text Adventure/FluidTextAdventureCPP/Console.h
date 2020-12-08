@@ -24,8 +24,7 @@ public:
 	}
 	static void ForegroundColor(FluidHTN::ConsoleColor color)
 	{
-		WORD currAttr = getCurrentAttributes();
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), currAttr | (WORD)color);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),  (WORD)color);
 	}
 	static void Write(const std::string& msg)
 	{
