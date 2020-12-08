@@ -28,8 +28,6 @@ std::shared_ptr<GameScreen> GameScreen::PerformAction(AIContext context, std::st
 
 ScreenFuncType GameScreen::FindBestMatch(std::vector<std::string>& parameters)
 {
-	if (KeywordsToAction.size() == 0)
-		return nullptr;
 
 	ScreenFuncType bestMatch;
 	int bestScore = 0;

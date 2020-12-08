@@ -17,7 +17,7 @@ std::shared_ptr<FluidHTN::Domain> Sword::DefineDomain()
 											   [](IContext& ctx) { return static_cast<AIContext&>(ctx).HasGoal(GoalState::GetSword); });
 			getSwordDomainBuilder.AddAction("Get Sword");
                 getSwordDomainBuilder.AddCondition("Has NOT Weapon",[](IContext& ctx) {
-                     return static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasWeapon);
+                     return static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasWeapon,false);
 				});
 				getSwordDomainBuilder.AddOperator([](IContext& ctx) { return Actions::GetSword(static_cast<AIContext&>(ctx)); });
                 getSwordDomainBuilder.AddEffect("Has Weapon", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {

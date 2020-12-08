@@ -3,6 +3,7 @@
 #include "StdIncludes.h"
 #include "Player.h"
 #include "Screens/GameScreen.h"
+#include "Screens/IntroScreen.h"
 
 WORD Console::_wStartConsoleAttributes;
 
@@ -10,9 +11,16 @@ int main()
 {
     std::cout << "Hello World!\n";
 
-
     auto player = std::make_shared<Player>();
+    player->Init();
 
+    std::shared_ptr<GameScreen> nextScreen = std::make_shared<IntroScreen>();
+    while (nextScreen)
+    {
+        nextScreen = nextScreen->Run(*(player->Context()));
+    }
+    Console::WriteLine("The End!");
+    Console::ReadKey();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

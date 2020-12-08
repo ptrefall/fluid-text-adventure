@@ -68,13 +68,13 @@ private:
     std::shared_ptr<class GameScreen>  _CurrentScreen;
     std::shared_ptr<AIWorldStateType> _AIWorldState;
 public:
+    AIContext() = delete;
     AIContext(const std::shared_ptr<Player>& p)
     {
         _Player = p;
         _DebugMTR = false;
         _LogDecomposition = true;
-        _WorldState = std::shared_ptr<AIWorldStateType>();
-        _AIWorldState = _AIWorldState;
+        _WorldState = std::make_shared<AIWorldStateType>();
     }
     std::shared_ptr<Player>& Player() { return _Player; }
     std::shared_ptr<GameScreen>& CurrentScreen(){ return _CurrentScreen; }
@@ -92,7 +92,7 @@ public:
 
     GoalState GetGoal()
     {
-        return (GoalState)_AIWorldState->GetState((WORLDSTATEPROPERTY_ID_TYPE)AIWorldState::Goal);
+        return (GoalState)BaseContext::GetState((WORLDSTATEPROPERTY_ID_TYPE)AIWorldState::Goal);
     }
 
     void SetGoal(GoalState goal, bool setAsDirty = true, EffectType effectType = EffectType::Permanent)
@@ -118,6 +118,6 @@ public:
 
     WORLDSTATEPROPERTY_VALUE_TYPE GetState(AIWorldState state) 
     {
-        return GetState(state);
+        return BaseContext::GetState((WORLDSTATEPROPERTY_ID_TYPE)state);
     }
 };

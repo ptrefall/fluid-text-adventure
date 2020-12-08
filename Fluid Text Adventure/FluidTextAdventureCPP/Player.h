@@ -17,6 +17,9 @@ public:
     Player()
     {
         _planner = std::make_shared<class Planner>();
+    }
+    void Init()
+    {
         _context = std::make_shared<AIContext>(shared_from_this());
         _context->Init();
     }

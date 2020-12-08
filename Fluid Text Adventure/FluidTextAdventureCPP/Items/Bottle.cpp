@@ -33,7 +33,7 @@ std::shared_ptr<FluidHTN::Domain> Bottle::DefineDomain()
         });
         getBottleDomainBuilder.End();
         getBottleDomainBuilder.End();
-        getBottleDomainBuilder.Build();
+        getBottleDomain =  getBottleDomainBuilder.Build();
     }
 
     {
@@ -191,6 +191,7 @@ std::shared_ptr<FluidHTN::Domain> Bottle::DefineDomain()
         cutBottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {
             static_cast<AIContext&>(ctx).SetGoal(GoalState::None, true, type);
         });
+        cutBottleDomainBuilder.End();
         cutBottleDomain = cutBottleDomainBuilder.Build();
     }
     // clang-format off

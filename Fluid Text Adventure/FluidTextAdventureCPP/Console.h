@@ -41,6 +41,10 @@ public:
 		std::getline(std::cin, line);
 		return line;
 	}
+	static char ReadKey()
+	{ 
+		return ::getchar();
+	}
 	static void Clear()
 	{
 		COORD coordScreen = { 0, 0 };    // home for the cursor
