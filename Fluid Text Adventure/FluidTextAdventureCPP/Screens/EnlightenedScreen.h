@@ -10,11 +10,11 @@ public:
     }
 
 protected:
-    virtual std::shared_ptr<GameScreen> OnRun(AIContext& context) override;
+    virtual SharedPtr<GameScreen> OnRun(AIContext& context) override;
     
 
 private:
-    std::shared_ptr<GameScreen> Intro(AIContext& context)
+    SharedPtr<GameScreen> Intro(AIContext& context)
     {
         Write("The room seems to change around you.");
         Write("The walls disappear.");

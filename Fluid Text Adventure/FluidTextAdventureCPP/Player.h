@@ -9,18 +9,18 @@
 class Player : public std::enable_shared_from_this<Player>
 {
 private:
-    std::shared_ptr<Planner> _planner;
-    std::shared_ptr<class AIContext> _context;
+    SharedPtr<Planner> _planner;
+    SharedPtr<class AIContext> _context;
 public:
-    std::shared_ptr<AIContext>& Context() { return _context; }
+    SharedPtr<AIContext>& Context() { return _context; }
 
     Player()
     {
-        _planner = std::make_shared<class Planner>();
+        _planner = MakeSharedPtr<class Planner>();
     }
     void Init()
     {
-        _context = std::make_shared<AIContext>(shared_from_this());
+        _context = MakeSharedPtr<AIContext>(shared_from_this());
         _context->Init();
     }
     void Think(Domain& domain)

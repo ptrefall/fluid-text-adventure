@@ -3,17 +3,17 @@
 #include "Actions.h"
 #include "Bottle.h"
 
-std::shared_ptr<FluidHTN::Domain> Bottle::DefineDomain()
+SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 {
-    std::shared_ptr<FluidHTN::Domain> getBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> dropBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> openBottleActionDomain;
-    std::shared_ptr<FluidHTN::Domain> openBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> drinkBottleActionDomain;
-    std::shared_ptr<FluidHTN::Domain> drinkBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> throwBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> cutBottleDomain;
-    std::shared_ptr<FluidHTN::Domain> breakBottleDomain;
+    SharedPtr<FluidHTN::Domain> getBottleDomain;
+    SharedPtr<FluidHTN::Domain> dropBottleDomain;
+    SharedPtr<FluidHTN::Domain> openBottleActionDomain;
+    SharedPtr<FluidHTN::Domain> openBottleDomain;
+    SharedPtr<FluidHTN::Domain> drinkBottleActionDomain;
+    SharedPtr<FluidHTN::Domain> drinkBottleDomain;
+    SharedPtr<FluidHTN::Domain> throwBottleDomain;
+    SharedPtr<FluidHTN::Domain> cutBottleDomain;
+    SharedPtr<FluidHTN::Domain> breakBottleDomain;
     {
         BaseDomainBuilder getBottleDomainBuilder("Get Bottle Sub-domain");
         getBottleDomainBuilder.AddSelector("Get Bottle");

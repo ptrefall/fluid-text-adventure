@@ -3,12 +3,12 @@
 #include "Actions.h"
 #include "Sword.h"
 
-std::shared_ptr<FluidHTN::Domain> Sword::DefineDomain()
+SharedPtr<FluidHTN::Domain> Sword::DefineDomain()
 {
 
-    std::shared_ptr<FluidHTN::Domain> getSwordDomain;
-    std::shared_ptr<FluidHTN::Domain> dropSwordDomain;
-    std::shared_ptr<FluidHTN::Domain> slashAirActionDomain;
+    SharedPtr<FluidHTN::Domain> getSwordDomain;
+    SharedPtr<FluidHTN::Domain> dropSwordDomain;
+    SharedPtr<FluidHTN::Domain> slashAirActionDomain;
     // clang-format off
     {
     BaseDomainBuilder getSwordDomainBuilder("Get Sword Sub-domain");

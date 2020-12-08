@@ -64,20 +64,20 @@ public:
 class AIContext : public BaseContext
 {
 private:
-    std::shared_ptr<class Player> _Player;
-    std::shared_ptr<class GameScreen>  _CurrentScreen;
-    std::shared_ptr<AIWorldStateType> _AIWorldState;
+    SharedPtr<class Player> _Player;
+    SharedPtr<class GameScreen>  _CurrentScreen;
+    SharedPtr<AIWorldStateType> _AIWorldState;
 public:
     AIContext() = delete;
-    AIContext(const std::shared_ptr<Player>& p)
+    AIContext(const SharedPtr<Player>& p)
     {
         _Player = p;
         _DebugMTR = false;
         _LogDecomposition = true;
-        _WorldState = std::make_shared<AIWorldStateType>();
+        _WorldState = MakeSharedPtr<AIWorldStateType>();
     }
-    std::shared_ptr<Player>& Player() { return _Player; }
-    std::shared_ptr<GameScreen>& CurrentScreen(){ return _CurrentScreen; }
+    SharedPtr<Player>& Player() { return _Player; }
+    SharedPtr<GameScreen>& CurrentScreen(){ return _CurrentScreen; }
 
     virtual void Init() override
     {

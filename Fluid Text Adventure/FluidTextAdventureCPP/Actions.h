@@ -36,7 +36,7 @@ public:
 	{
 		context.CurrentScreen()->Write("You take a sip from the bottle", false);
 		context.CurrentScreen()->Write("As the liquid runs down your throat and fills your belly, something weird starts happening. Your vision blur!");
-		context.CurrentScreen() = std::make_shared<EnlightenedScreen>();
+		context.CurrentScreen() = MakeSharedPtr<EnlightenedScreen>();
 		return TaskStatus::Success;
 	}
 
@@ -44,7 +44,7 @@ public:
 	{
 		context.CurrentScreen()->Write("You throw the bottle at the wall, it shatters!", false);
 		context.CurrentScreen()->Write("The liquid splashes all over the place, even on you!");
-		context.CurrentScreen() = std::make_shared<EnlightenedScreen>();
+		context.CurrentScreen() = MakeSharedPtr<EnlightenedScreen>();
 		return TaskStatus::Success;
 	}
 
@@ -52,7 +52,7 @@ public:
 	{
 		context.CurrentScreen()->Write("You swing your sword furiously at the bottle, it shatters!", false);
 		context.CurrentScreen()->Write("The liquid splashes all over the place, even on you!");
-		context.CurrentScreen() = std::make_shared<EnlightenedScreen>();
+		context.CurrentScreen() = MakeSharedPtr<EnlightenedScreen>();
 		return TaskStatus::Success;
 	}
 
