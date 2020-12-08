@@ -12,6 +12,36 @@ class Console final
 		}
 		return  info.wAttributes;
 	}
+	static WORD convertColorToWin32(FluidHTN::ConsoleColor color)
+	{
+        switch (color)
+        {
+            case FluidHTN::ConsoleColor::Black:
+                return 0;
+            case FluidHTN::ConsoleColor::White:
+                return FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
+            case FluidHTN::ConsoleColor::Blue:
+                return FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+            case FluidHTN::ConsoleColor::DarkBlue:
+                return FOREGROUND_BLUE;
+            case FluidHTN::ConsoleColor::Green:
+                return FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+            case FluidHTN::ConsoleColor::DarkGreen:
+                return FOREGROUND_GREEN;
+            case FluidHTN::ConsoleColor::Red:
+                return FOREGROUND_RED | FOREGROUND_INTENSITY;
+            case FluidHTN::ConsoleColor::DarkRed:
+				return FOREGROUND_RED;
+            case FluidHTN::ConsoleColor::Yellow:
+                return FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+            case FluidHTN::ConsoleColor::DarkYellow:
+                return FOREGROUND_RED | FOREGROUND_GREEN;
+            default:
+                return 0xFF;
+			
+		}
+
+	};
 public:
 	static bool Init()
 	{
@@ -24,7 +54,7 @@ public:
 	}
 	static void ForegroundColor(FluidHTN::ConsoleColor color)
 	{
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),  (WORD)color);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), convertColorToWin32(color));
 	}
 	static void Write(const std::string& msg)
 	{

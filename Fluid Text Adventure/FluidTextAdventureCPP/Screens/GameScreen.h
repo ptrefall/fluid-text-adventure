@@ -67,6 +67,12 @@ private:
 	std::vector<std::string> SpliceKnownCommands(std::vector<std::string>& parameters)
 	{
 		std::vector<std::string> result;
+
+		// corner case of one-word commands.
+		if(parameters.size() == 1)
+        {
+            result = parameters;
+        }
 		for (int i = 0; i < parameters.size() - 1; i++)
 		{
 			if (parameters[i] == "pick" && parameters[i + 1] == "up")
