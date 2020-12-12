@@ -12,11 +12,11 @@ class Bottle : public Item
 public :
     virtual const std::string& Description() override { return _description; }
 
-	Bottle(std::function<std::shared_ptr<GameScreen>(AIContext&, GoalState)> SetGoal) : Item(DefineDomain())
+	Bottle(std::function<SharedPtr<GameScreen>(AIContext&, GoalState)> SetGoal) : Item(DefineDomain())
 	{
         _KeywordsToAction = {
             {{"get", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::GetBottle);
@@ -26,7 +26,7 @@ public :
 
             },
             {{"open", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::OpenBottle);
@@ -34,7 +34,7 @@ public :
                  return nullptr;
              }},
             {{"drink", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::DrinkBottle);
@@ -42,7 +42,7 @@ public :
                  return nullptr;
              }},
             {{"break", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::BreakBottle);
@@ -50,7 +50,7 @@ public :
                  return nullptr;
              }},
             {{"throw", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::ThrowBottle);
@@ -58,7 +58,7 @@ public :
                  return nullptr;
              }},
             {{"slash", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::SlashBottle);
@@ -66,7 +66,7 @@ public :
                  return nullptr;
              }},
             {{"drop", "bottle"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::DropBottle);
@@ -76,6 +76,6 @@ public :
         };
 	}
 private:
-    static std::shared_ptr<FluidHTN::Domain> DefineDomain();
+    static SharedPtr<FluidHTN::Domain> DefineDomain();
 	
 };

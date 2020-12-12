@@ -5,26 +5,26 @@
 class GameScreen: public std::enable_shared_from_this<GameScreen>
 {
 protected:
-	std::shared_ptr<class Domain> _Domain;
-	std::vector<std::shared_ptr<class Item>> _Items;
+	SharedPtr<class Domain> _Domain;
+	std::vector<SharedPtr<class Item>> _Items;
 	std::vector<KeywordsToActionEntry> KeywordsToAction;
 
 	bool _FirstRun = true;
 
-	virtual std::shared_ptr<GameScreen> OnRun(AIContext& context) = 0;
+	virtual SharedPtr<GameScreen> OnRun(AIContext& context) = 0;
 public:
-	std::shared_ptr<Domain> GetDomain() { return _Domain; }
-	std::vector<std::shared_ptr<Item>>& Items() { return _Items; }
+	SharedPtr<Domain> GetDomain() { return _Domain; }
+	std::vector<SharedPtr<Item>>& Items() { return _Items; }
 	bool FirstRun() { return _FirstRun; }
 
 
-	void Initialize(std::shared_ptr<Domain> domain)
+	void Initialize(SharedPtr<Domain> domain)
 	{
 		_Domain = domain;
 	}
 
 
-	std::shared_ptr<GameScreen> Run(AIContext& context)
+	SharedPtr<GameScreen> Run(AIContext& context)
 	{
 		auto result = OnRun(context);
 		if (_FirstRun) _FirstRun = false;
@@ -50,7 +50,7 @@ public:
 		return result;
 	}
 
-	std::shared_ptr<GameScreen> PerformAction(AIContext context, std::string& action);
+	SharedPtr<GameScreen> PerformAction(AIContext context, std::string& action);
 	
 
 private:

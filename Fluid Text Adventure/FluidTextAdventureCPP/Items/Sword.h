@@ -10,11 +10,11 @@ class Sword : public Item
 public :
     virtual const std::string& Description() override { return _description; }
 
-    Sword(std::function<std::shared_ptr<GameScreen>(AIContext&, GoalState)> SetGoal) : Item(DefineDomain())
+    Sword(std::function<SharedPtr<GameScreen>(AIContext&, GoalState)> SetGoal) : Item(DefineDomain())
     {
         _KeywordsToAction = {
             {{"get", "sword"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::GetSword);
@@ -22,7 +22,7 @@ public :
                  return nullptr;
              }},
             {{"slash", "sword"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::SlashAir);
@@ -30,7 +30,7 @@ public :
                  return nullptr;
              }},
             {{"slash"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::SlashAir);
@@ -38,7 +38,7 @@ public :
                  return nullptr;
              }},
             {{"drop", "sword"},
-             [=](AIContext& ctx) -> std::shared_ptr<GameScreen> {
+             [=](AIContext& ctx) -> SharedPtr<GameScreen> {
                  if (SetGoal != nullptr)
                  {
                      return SetGoal(ctx, GoalState::DropSword);
@@ -49,6 +49,6 @@ public :
     }
 
 private:
-    static std::shared_ptr<FluidHTN::Domain> DefineDomain();
+    static SharedPtr<FluidHTN::Domain> DefineDomain();
     
 };

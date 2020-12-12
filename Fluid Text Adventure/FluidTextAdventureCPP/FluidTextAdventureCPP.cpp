@@ -12,10 +12,10 @@ int main()
     std::cout << "Hello World!\n";
     Console::Init();
 
-    auto player = std::make_shared<Player>();
+    auto player = MakeSharedPtr<Player>();
     player->Init();
 
-    std::shared_ptr<GameScreen> nextScreen = std::make_shared<IntroScreen>();
+    SharedPtr<GameScreen> nextScreen = MakeSharedPtr<IntroScreen>();
     while (nextScreen)
     {
         nextScreen = nextScreen->Run(*(player->Context()));

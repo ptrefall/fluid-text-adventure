@@ -32,5 +32,5 @@ inline std::string StringToLower(const std::string& input)
 	return output;
 }
 
-typedef std::function<std::shared_ptr<class GameScreen>(class AIContext&)> ScreenFuncType;
+typedef std::function<SharedPtr<class GameScreen>(class AIContext&)> ScreenFuncType;
 typedef std::tuple<std::vector<std::string>, ScreenFuncType > KeywordsToActionEntry;

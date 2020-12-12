@@ -10,14 +10,14 @@ IntroScreen::IntroScreen()
 {
 	_Items =
 	{
-        std::make_shared<Bottle>([this](AIContext& ctx, GoalState gs) { return this->SetGoal(ctx, gs); }),
-		std::make_shared<Sword>(([this](AIContext& ctx, GoalState gs) { return this->SetGoal(ctx, gs); })),
+        MakeSharedPtr<Bottle>([this](AIContext& ctx, GoalState gs) { return this->SetGoal(ctx, gs); }),
+		MakeSharedPtr<Sword>(([this](AIContext& ctx, GoalState gs) { return this->SetGoal(ctx, gs); })),
 	};
 
 
 	GameScreen::Initialize(DefineDomain(_Items));
 }
-std::shared_ptr<GameScreen> IntroScreen::OnRun(AIContext& context)
+SharedPtr<GameScreen> IntroScreen::OnRun(AIContext& context)
 {
 	if (_FirstRun)
 	{
@@ -32,7 +32,7 @@ std::shared_ptr<GameScreen> IntroScreen::OnRun(AIContext& context)
 		return PerformAction(context, action);
 	}
 }
-std::shared_ptr<Domain> IntroScreen::DefineDomain(std::vector<std::shared_ptr<Item>>& itemsInScreen)
+SharedPtr<Domain> IntroScreen::DefineDomain(std::vector<SharedPtr<Item>>& itemsInScreen)
 {
     BaseDomainBuilder itemDomainBuilder("Item Sub-domains");
     for (auto item : itemsInScreen)

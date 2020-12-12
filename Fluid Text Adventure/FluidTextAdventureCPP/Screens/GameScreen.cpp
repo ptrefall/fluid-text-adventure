@@ -4,14 +4,14 @@
 #include "GameScreen.h"
 #include "Screens/EnlightenedScreen.h"
 
-std::shared_ptr<GameScreen> GameScreen::PerformAction(AIContext context, std::string& action)
+SharedPtr<GameScreen> GameScreen::PerformAction(AIContext context, std::string& action)
 {
 	action = StringToLower(action);
 	std::vector<std::string> parameters;
 	StringSplit(action, parameters, ' ');
 	parameters = SpliceKnownCommands(parameters);
 	auto func = FindBestMatch(parameters);
-	std::shared_ptr<GameScreen> result;
+	SharedPtr<GameScreen> result;
 	if (func)
 	{
 		result = func(context);
@@ -103,7 +103,7 @@ ScreenFuncType GameScreen::FindBestMatch(std::vector<std::string>& parameters)
 
 	return (bestScore > 1 ? bestMatch : nullptr);
 }
-std::shared_ptr<GameScreen> EnlightenedScreen::OnRun(AIContext& context)
+SharedPtr<GameScreen> EnlightenedScreen::OnRun(AIContext& context)
 {
 	if (_FirstRun)
 	{
