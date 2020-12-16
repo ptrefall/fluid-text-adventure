@@ -1,5 +1,5 @@
 #include "StdIncludes.h"
-#include "BaseDomainBuilder.h"
+#include "CoreIncludes/BaseDomainBuilder.h"
 #include "Actions.h"
 #include "Sword.h"
 
@@ -39,7 +39,7 @@ SharedPtr<FluidHTN::Domain> Sword::DefineDomain()
 											   [](IContext& ctx) { return static_cast<AIContext&>(ctx).HasGoal(GoalState::DropSword); });
 				  dropSwordDomainBuilder.AddAction("Drop Sword");
 					  dropSwordDomainBuilder.AddCondition("Has Weapon",[](IContext& ctx) {
-						 return static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasWeapon);
+						 return static_cast<AIContext&>(ctx).HasState(AIWorldState::HasWeapon);
 					  });
 					  dropSwordDomainBuilder.AddOperator([](IContext& ctx) { return Actions::DropSword(static_cast<AIContext&>(ctx)); });
 					  dropSwordDomainBuilder.AddEffect("Has NOT Weapon",
@@ -60,7 +60,7 @@ SharedPtr<FluidHTN::Domain> Sword::DefineDomain()
 		   slashAirActionDomainBuilder.AddCondition("GOAL: Slash Air", 
 						   [](IContext& ctx) { return static_cast<AIContext&>(ctx).HasGoal(GoalState::SlashAir); });
 			slashAirActionDomainBuilder.AddCondition("Has Weapon",[](IContext& ctx) {
-				 return static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasWeapon);
+				 return static_cast<AIContext&>(ctx).HasState(AIWorldState::HasWeapon);
 			});
 			slashAirActionDomainBuilder.AddOperator([](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "You slash your sword through the air elegantly!");});
 			slashAirActionDomainBuilder.AddEffect("Try Complete Goal",
@@ -79,7 +79,7 @@ SharedPtr<FluidHTN::Domain> Sword::DefineDomain()
 				swordDomainBuilder.AddCondition("GOAL: Get Sword", 
 						   [](IContext& ctx) { return static_cast<AIContext&>(ctx).HasGoal(GoalState::GetSword); });
 				swordDomainBuilder.AddCondition("Has Weapon", [](IContext& ctx) {
-					 return static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasWeapon);
+					 return static_cast<AIContext&>(ctx).HasState(AIWorldState::HasWeapon);
 				});
 				swordDomainBuilder.AddOperator([](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "But you're already wielding the sword!");});
 				swordDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {

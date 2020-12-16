@@ -1,6 +1,6 @@
 #include "StdIncludes.h"
 #include "AIContext.h"
-#include "BaseDomainBuilder.h"
+#include "CoreIncludes/BaseDomainBuilder.h"
 #include "Items/Bottle.h"
 #include "Items/Sword.h"
 #include "Actions.h"

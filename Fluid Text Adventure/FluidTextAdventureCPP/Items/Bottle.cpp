@@ -1,5 +1,5 @@
 #include "StdIncludes.h"
-#include "BaseDomainBuilder.h"
+#include "CoreIncludes/BaseDomainBuilder.h"
 #include "Actions.h"
 #include "Bottle.h"
 
@@ -300,7 +300,7 @@ SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 				return ( static_cast<AIContext&>(ctx).GetGoal() > GoalState::None &&  static_cast<AIContext&>(ctx).GetGoal() <= GoalState::ThrowBottle);
 			});
 			bottleDomainBuilder.AddCondition("Bottle is broken",[](IContext& ctx) { 
-				return  static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::BottleIsBroken);
+				return  static_cast<AIContext&>(ctx).HasState(AIWorldState::BottleIsBroken);
 			});
 			bottleDomainBuilder.AddOperator( [](IContext& ctx) {return Actions::Write(static_cast<AIContext&>(ctx), "But the bottle lies shattered on the ground!");});
 			bottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {
@@ -317,7 +317,7 @@ SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 				 return  static_cast<AIContext&>(ctx).HasGoal(GoalState::GetBottle);
 			 });
 			bottleDomainBuilder.AddCondition("Has Bottle", [](IContext& ctx) { 
-				 return  static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasBottle);
+				 return  static_cast<AIContext&>(ctx).HasState(AIWorldState::HasBottle);
 			});
 			bottleDomainBuilder.AddOperator( [](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "But you already hold the bottle!");});
 			bottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute,[](IContext& ctx, EffectType type) {
@@ -329,7 +329,7 @@ SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 				 return  static_cast<AIContext&>(ctx).HasGoal(GoalState::OpenBottle);
 			});
 			bottleDomainBuilder.AddCondition("Bottle is open",[](IContext& ctx) { 
-				 return  static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::BottleIsOpen);
+				 return  static_cast<AIContext&>(ctx).HasState(AIWorldState::BottleIsOpen);
 			});
 			bottleDomainBuilder.AddOperator( [](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "But you already opened the bottle!");});
 			bottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {
@@ -341,7 +341,7 @@ SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 				 return  static_cast<AIContext&>(ctx).HasGoal(GoalState::DrinkBottle);
 			});
 			bottleDomainBuilder.AddCondition("Bottle is empty",  [](IContext& ctx) { 
-				 return  static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::BottleIsEmpty);
+				 return  static_cast<AIContext&>(ctx).HasState(AIWorldState::BottleIsEmpty);
 			});
 			bottleDomainBuilder.AddOperator( [](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "But the bottle is empty!");});
 			bottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {
@@ -353,7 +353,7 @@ SharedPtr<FluidHTN::Domain> Bottle::DefineDomain()
 				 return  static_cast<AIContext&>(ctx).HasGoal(GoalState::DropBottle);
 			});
 			bottleDomainBuilder.AddCondition("Has NOT Bottle",[](IContext& ctx) { 
-				 return  static_cast<AIContext&>(ctx).HasStateAIWS(AIWorldState::HasBottle);
+				 return  static_cast<AIContext&>(ctx).HasState(AIWorldState::HasBottle);
 			});
 			bottleDomainBuilder.AddOperator( [](IContext& ctx) { return Actions::Write(static_cast<AIContext&>(ctx), "But you're not holding the bottle!");});
 			bottleDomainBuilder.AddEffect("Complete Goal", EffectType::PlanAndExecute, [](IContext& ctx, EffectType type) {

@@ -1,6 +1,6 @@
 #pragma once
+#include "CoreIncludes/Domain.h"
 #include "Planners/Planner.h"
-#include "Domain.h"
 #include "DebugInterfaces/DecompositionLogEntry.h"
 #include "Console.h"
 
@@ -28,7 +28,7 @@ public:
         auto startGoal = _context->GetGoal();
         while (_context->GetGoal() == startGoal)
         {
-            _planner->Tick(domain, *_context);
+            _planner->Tick<AIWorldState,uint8_t,AIWorldStateType>(domain, *_context);
 
             if (_context->LogDecomposition())
             {

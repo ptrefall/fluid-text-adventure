@@ -1,6 +1,6 @@
 #pragma once
 #include "Effects/Effect.h"
-#include "WorldState.h"
+#include "CoreIncludes/WorldState.h"
 #include "Contexts/BaseContext.h"
 
 using namespace FluidHTN;
@@ -30,38 +30,38 @@ enum class GoalState
 	SlashAir,
 };
 
-class AIWorldStateType : public IWorldState
+class AIWorldStateType : public IWorldState<AIWorldState,uint8_t,AIWorldStateType>
 {
 protected:
-    WORLDSTATEPROPERTY_VALUE_TYPE _worldState[(int)(AIWorldState::Goal)+1] = { 0 };
+    uint8_t _worldState[(int)(AIWorldState::Goal) + 1] = {0};
 
 public:
-    bool HasState(WORLDSTATEPROPERTY_ID_TYPE state, WORLDSTATEPROPERTY_VALUE_TYPE value) override
+    bool HasState(AIWorldState state, uint8_t value) 
     {
         return (_worldState[value] == value);
     }
 
 
-    WORLDSTATEPROPERTY_VALUE_TYPE& GetState(WORLDSTATEPROPERTY_ID_TYPE state) override
+    uint8_t& GetState(AIWorldState state) 
     {
-        return _worldState[state];
+        return _worldState[(int)state];
     }
 
 
-    void SetState(WORLDSTATEPROPERTY_ID_TYPE state, WORLDSTATEPROPERTY_VALUE_TYPE value) override
+    void SetState(AIWorldState state, uint8_t value) 
     {
-        _worldState[state] = value;
+        _worldState[(int)state] = value;
     }
 
 
-    int GetMaxPropertyCount() override
+    int GetMaxPropertyCount() 
     {
         return (int)(AIWorldState::Goal)+1;
     }
 
 };
 
-class AIContext : public BaseContext
+class AIContext : public BaseContext<AIWorldState,uint8_t,AIWorldStateType>
 {
 private:
     SharedPtr<class Player> _Player;
@@ -92,32 +92,29 @@ public:
 
     GoalState GetGoal()
     {
-        return (GoalState)BaseContext::GetState((WORLDSTATEPROPERTY_ID_TYPE)AIWorldState::Goal);
+        return (GoalState)BaseContext::GetState(AIWorldState::Goal);
     }
 
     void SetGoal(GoalState goal, bool setAsDirty = true, EffectType effectType = EffectType::Permanent)
     {
-        SetState((int)AIWorldState::Goal, (uint8_t)goal, setAsDirty, effectType);
+        SetState(AIWorldState::Goal, (uint8_t)goal, setAsDirty, effectType);
     }
-
+    //
+	//https://stackoverflow.com/questions/411103/function-with-same-name-but-different-signature-in-derived-class
+    //
     bool HasStateAIWS(AIWorldState state, bool value)
     {
-        WORLDSTATEPROPERTY_VALUE_TYPE val = (value ? 1 : 0);
-        return HasState((WORLDSTATEPROPERTY_ID_TYPE)state, val);
+        uint8_t val = (value ? 1 : 0);
+        return BaseContext::HasState(state, val);
     }
 
-    bool HasStateAIWS(AIWorldState state)
+    bool HasState(AIWorldState state) 
     {
-        return HasStateAIWS(state, 1);
+        return BaseContext::HasState(state, 1);
     }
 
     void SetStateAIWS(AIWorldState state, bool value, EffectType type)
     {
-        SetState((int)state, (uint8_t)(value ? 1 : 0), true, type);
-    }
-
-    WORLDSTATEPROPERTY_VALUE_TYPE GetState(AIWorldState state) 
-    {
-        return BaseContext::GetState((WORLDSTATEPROPERTY_ID_TYPE)state);
+        SetState(state, (uint8_t)(value ? 1 : 0), true, type);
     }
 };
