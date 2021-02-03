@@ -38,7 +38,7 @@ protected:
 public:
     bool HasState(AIWorldState state, uint8_t value) 
     {
-        return (_worldState[value] == value);
+        return (_worldState[state] == value);
     }
 
 
